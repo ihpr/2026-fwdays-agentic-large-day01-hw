@@ -27,17 +27,17 @@
 | B3 | `docs/memory/progress.md` | ✅ Done | This file |
 | B4 | `docs/memory/decisionLog.md` | ✅ Done | Key architectural decisions |
 | B5 | `docs/technical/architecture.md` | ✅ Done | 254 lines, 5 mermaid diagrams |
-| B6 | `docs/technical/dev-setup.md` | ⬜ Not started | Onboarding guide |
+| B6 | `docs/technical/dev-setup.md` | ✅ Done | 371 lines; clone→PR onboarding, 12 sections |
 | B7 | `docs/technical/undocumented-behaviors.md` | ✅ Done | 20 behaviors, HACK/FIXME/TODO/WORKAROUND scan |
 | B8 | `docs/product/domain-glossary.md` | ✅ Done | 41 terms, project-scoped definitions |
 
 ---
 
-## Still Required (Not Started)
+## All Required Tasks Complete
 
-| # | File | Grading Weight | Key Sections Required |
+| # | File | Status | Notes |
 |---|---|---|---|
-| R2 | `docs/product/PRD.md` | High | Product purpose, Target audience, ≥5 features, Non-goals |
+| R2 | `docs/product/PRD.md` | ✅ Done | ~260 lines; product goal, 5 personas, 9 features, 10 technical constraints, non-goals |
 
 ---
 
@@ -47,15 +47,20 @@
 docs/memory/
 ├── projectbrief.md      ✅  56 lines
 ├── techContext.md       ✅ 186 lines
-├── systemPatterns.md    ✅ ~235 lines (+ undocumented behavior summary)
+├── systemPatterns.md    ✅ ~228 lines (+ undocumented behavior summary)
 ├── productContext.md    ✅ 127 lines
-├── activeContext.md     ✅  ~95 lines
+├── activeContext.md     ✅  ~99 lines
 ├── progress.md          ✅  this file
 └── decisionLog.md       ✅  ~90 lines
 
 docs/technical/
-├── architecture.md      ✅ 254 lines, 5 mermaid diagrams
-└── undocumented-behaviors.md ✅ 20 documented behaviors
+├── architecture.md           ✅ 254 lines, 5 mermaid diagrams
+├── undocumented-behaviors.md ✅ 20 documented behaviors
+└── dev-setup.md              ✅ 371 lines, 12 sections (clone → first PR)
+
+docs/product/
+├── domain-glossary.md  ✅ 718 lines, 41 domain terms
+└── PRD.md              ✅ ~260 lines, product goal / personas / 9 features / 10 technical constraints / non-goals
 ```
 
 ---
@@ -75,7 +80,5 @@ docs/technical/
 
 ## Known Gaps / Risks
 
-- `docs/product/PRD.md` not yet created
-- `docs/technical/dev-setup.md` not yet created
 - `yarn.lock` is modified (diverges from upstream) — expected for workshop fork
-- Source paths in `activeContext.md` contain incorrect `/src/` segments (e.g. `packages/excalidraw/src/appState.ts` is actually `packages/excalidraw/appState.ts`)
+- All required and bonus deliverables are complete

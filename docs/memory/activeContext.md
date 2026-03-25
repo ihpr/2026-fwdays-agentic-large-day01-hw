@@ -26,32 +26,28 @@ Domain glossary, reverse-engineered PRD.
 
 ## Active Work Items
 
-### Completed in This Session
-- `.cursorignore` — created at repo root with meaningful exclusion patterns for the monorepo
+### Completed
+- `.cursorignore` — repo root, 50+ exclusion patterns
 - `docs/memory/projectbrief.md` — project overview and dual-product structure
 - `docs/memory/techContext.md` — full tech stack with versions, build scripts, testing tools
-- `docs/memory/systemPatterns.md` — architecture patterns: state layers, actions system, rendering pipeline
+- `docs/memory/systemPatterns.md` — architecture patterns + implicit-contract reference for AI agents
 - `docs/memory/productContext.md` — UX goals, user personas, core scenarios
 - `docs/memory/activeContext.md` — this file
 - `docs/memory/progress.md` — workshop checklist and progress tracking
 - `docs/memory/decisionLog.md` — key architectural decisions in Excalidraw
+- `docs/technical/architecture.md` — 254 lines; 5 mermaid diagrams (high-level arch, data flow,
+  action execution, state management, rendering pipeline, package deps)
+- `docs/technical/dev-setup.md` — 371 lines; prerequisites → clone → dev server → tests →
+  pre-commit hooks → library build → forbidden patterns → PR checklist → common issues
+- `docs/technical/undocumented-behaviors.md` — 186 lines; 20 behaviors found via HACK/FIXME/TODO
+  scan + static analysis (implicit state machines, mutation contracts, global singletons,
+  known-broken areas, performance traps)
+- `docs/product/domain-glossary.md` — 41 domain terms with project-specific definitions,
+  source locations, usage context, and "do not confuse" notes
 
-### Completed in This Session (continued)
-- `docs/technical/architecture.md` — 254 lines; 5 mermaid diagrams covering high-level arch,
-  data flow, action execution, state management, rendering pipeline, and package deps
-
-### Completed in This Session (continued)
-- `docs/product/domain-glossary.md` — 41 domain terms, each with project-specific definition,
-  source location, usage context, and "do not confuse" notes where general meaning diverges
-
-### Completed in This Session (continued)
-- `docs/technical/undocumented-behaviors.md` — 20 documented undocumented behaviors found via
-  HACK/FIXME/TODO/WORKAROUND search + static analysis: implicit state machines, risky side effects,
-  initialization order dependencies, known-broken areas.
-
-### Not Yet Started
-- `docs/technical/dev-setup.md` — onboarding guide for new contributors
-- `docs/product/PRD.md` — reverse-engineered Product Requirements Document
+### Completed (continued)
+- `docs/product/PRD.md` — reverse-engineered PRD; ~260 lines; product goal, 5 user personas,
+  9 key features (F1–F9), 10 technical constraints (TC1–TC10), and explicit non-goals
 
 ---
 
