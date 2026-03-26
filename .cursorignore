@@ -27,17 +27,9 @@ dev-dist
 html
 meta*.json
 .claude
+.sfd
+.wasm
 
-# Auto-generated: WASM bindings compiled to TS (DO NOT EDIT markers)
+# Auto-generated code
 packages/excalidraw/subset/woff2/woff2-wasm.ts
 packages/excalidraw/subset/harfbuzz/harfbuzz-wasm.ts
-
-# Auto-generated: font subsets produced by the cn-font-split tool
-packages/excalidraw/fonts/Xiaolai/index.ts
-packages/excalidraw/fonts/Excalifont/index.ts
-packages/excalidraw/fonts/ComicShanns/index.ts
-packages/excalidraw/fonts/ComicShanns/ComicShanns-Regular.sfd
-
-# Binaries
-scripts/wasm/hb-subset.wasm
-scripts/wasm/woff2.wasm
