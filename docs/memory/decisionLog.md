@@ -58,7 +58,7 @@ for the canvas element graph or editor AppState.
 
 ---
 
-## D4 — Two-Canvas Rendering Architecture
+## D4 — Three-Canvas Rendering Architecture
 
 **Decision**: Use three stacked `<canvas>` layers (static, new-element, interactive) rather than
 a single canvas or SVG rendering.
