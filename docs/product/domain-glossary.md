@@ -361,13 +361,13 @@ element_). When bound, moving the shape causes the arrow endpoint to follow it.
 
 **Key types**
 
-| Term                        | Meaning                                                                                                            |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------- |
-| `FixedPointBinding`         | `{ elementId, fixedPoint: [0–1, 0–1], focus, gap }` — attachment on the target shape's normalised coordinate space |
-| `BindMode`                  | `"inside"` — endpoint inside shape; `"orbit"` — endpoint orbits outline; `"skip"` — no bind                        |
-| `BoundElement`              | Entry in a shape's `boundElements` array: `{ id, type: "arrow"                                                     | "text" }` |
-| `ExcalidrawBindableElement` | Union of element types that can receive arrow bindings                                                             |
-| `suggestedBinding`          | Hover-preview binding before the user releases the mouse                                                           |
+| Term                        | Meaning                                                                                                             |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `FixedPointBinding`         | `{ elementId, fixedPoint: [0–1, 0–1], focus, gap }` — attachment on the target shape's normalised coordinate space  |
+| `BindMode`                  | `"inside"` — endpoint inside shape; `"orbit"` — endpoint orbits outline; `"skip"` — no bind                         |
+| `BoundElement`              | Entry in a shape's `boundElements` array: `{ id, type: "arrow" \| "text" }`                                         |
+| `ExcalidrawBindableElement` | Union of element types that can receive arrow bindings                                                              |
+| `suggestedBinding`          | Hover-preview binding before the user releases the mouse                                                            |
 
 **Usage** — `packages/element/src/binding.ts`, `packages/element/src/types.ts`.
 
