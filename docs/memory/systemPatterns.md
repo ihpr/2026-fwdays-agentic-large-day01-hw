@@ -39,7 +39,7 @@ Declarative command registry: `actions/action*.ts` files call `register(action)`
 
 ## Data Flow: Input → State → Pixels
 
-```
+```text
 Event → App handler / ActionManager.handleKeyDown
       → action.perform() → ActionResult
       → App.syncActionResult() [withBatchedUpdates]
