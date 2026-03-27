@@ -31,7 +31,7 @@ Strict one-way dependency graph (no circular imports):
 
 Declarative command registry: `actions/action*.ts` files call `register(action)` → appended to module-level array (`actions/register.ts`).
 
-**Action shape** (`actions/types.ts`): `perform(elements, appState, formData, app) → ActionResult`, optional `keyTest`, optional `PanelComponent`, `captureUpdate` for undo policy.
+**Action shape** (`actions/types.ts`): `perform(elements, appState, formData, app) → ActionResult`, optional `keyTest`, optional `PanelComponent`. The returned `ActionResult` contains `captureUpdate` field for undo policy.
 
 **`ActionManager`**: receives `syncActionResult` from `App`; handles `handleKeyDown()` (priority-ordered shortcuts) and `renderAction()` (toolbar rendering).
 
