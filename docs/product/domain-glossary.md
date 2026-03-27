@@ -8,7 +8,7 @@ the project-specific one.
 
 ## Element
 
-**Definition**  
+**Definition**
 A single drawable object on the canvas. Every element is a plain
 JSON-serialisable record that extends `_ExcalidrawElementBase`. The union type
 `ExcalidrawElement` covers all concrete shapes.
@@ -38,7 +38,7 @@ actions.
 
 ## Element Type
 
-**Definition**  
+**Definition**
 The `type` string discriminator on each `ExcalidrawElement`. Determines which
 subtype interface applies and how the element is rendered.
 
@@ -69,7 +69,7 @@ predicates, hit-testing.
 
 ## Scene
 
-**Definition**  
+**Definition**
 The canonical, ordered collection of all `ExcalidrawElement` objects for the
 current drawing. `Scene` is a class (`packages/element/src/Scene.ts`) that owns
 the element graph, keeps typed maps for fast lookup, maintains the _scene nonce_
@@ -98,7 +98,7 @@ renderers.
 
 ## Scene Nonce
 
-**Definition**  
+**Definition**
 A random integer that is incremented every time `scene.triggerUpdate()` is
 called. It is the cache-invalidation key for `Renderer.getRenderableElements()`
 — when the nonce changes, the memoised visible-elements subset is recomputed.
@@ -113,7 +113,7 @@ called. It is the cache-invalidation key for `Renderer.getRenderableElements()`
 
 ## AppState
 
-**Definition**  
+**Definition**
 The single large React state object held by the `App` class component. It covers
 everything that is not part of the persistent element graph: active tool, scroll
 position, zoom level, selection, theme, open dialogs, collaboration cursors,
@@ -144,7 +144,6 @@ slice, every toolbar component.
 > **Narrowed sub-types** `StaticCanvasAppState` and `InteractiveCanvasAppState`
 > are smaller picks of `AppState` passed to individual canvas renderers to
 > prevent unnecessary re-renders.
-
 > **Do not confuse** with "application state" in the abstract or with a
 > third-party global store. `AppState` is the concrete React state object on
 > `App`, separate from the element graph held by `Scene`.
@@ -153,7 +152,7 @@ slice, every toolbar component.
 
 ## Tool
 
-**Definition**  
+**Definition**
 The interaction mode the user is currently in. Stored as `AppState.activeTool`
 with shape `{ type: ToolType, locked: boolean, ... }`. Selecting a tool
 determines which pointer handlers run and which element type gets created on
@@ -191,7 +190,7 @@ actions, pointer handlers.
 
 ## Action
 
-**Definition**  
+**Definition**
 A declarative, named command registered with `ActionManager`. Each action
 encapsulates a `perform` function that computes an `ActionResult`, optional
 keyboard shortcut binding (`keyTest`), and an optional React panel component
@@ -237,7 +236,7 @@ context-menu, command palette, or the imperative API.
 
 ## ActionManager
 
-**Definition**  
+**Definition**
 The central registry and dispatcher for all `Action` objects. Constructed once
 in `App` and passed through context. Key responsibilities:
 
@@ -259,7 +258,7 @@ context menu, command palette via `useExcalidrawActionManager()`.
 
 ## ActionResult
 
-**Definition**  
+**Definition**
 The return value of `Action.perform()`. A plain object describing the _desired
 next state_ rather than performing mutations directly. `App.syncActionResult()`
 applies it atomically.
@@ -277,7 +276,7 @@ Fields: `elements` (new element array), `appState` (partial patch), `files`,
 
 ## Store
 
-**Definition**  
+**Definition**
 Observes changes to the scene and app state after each commit and emits typed
 _increments_ used for undo/redo and for the `onIncrement` host callback. Does
 not store element data itself — it stores _deltas_ (diffs between snapshots).
@@ -303,7 +302,7 @@ consumed by `History`.
 
 ## History
 
-**Definition**  
+**Definition**
 Wraps `Store` to maintain undo and redo stacks of `HistoryDelta` records.
 Exposes `undo()` and `redo()` methods consumed by the corresponding actions.
 Fires `onHistoryChangedEmitter` so the toolbar can enable/disable undo/redo
@@ -321,7 +320,7 @@ apply so that undo/redo does not create false collaboration conflicts.
 
 ## Delta / StoreDelta
 
-**Definition**  
+**Definition**
 A serialisable, invertible diff between two states. `StoreDelta` contains:
 
 - `ElementsDelta` — which elements were added, removed, or mutated (field-level
@@ -342,7 +341,7 @@ sent over the collaboration WebSocket for remote sync.
 
 ## Fractional Index
 
-**Definition**  
+**Definition**
 A lexicographically sortable string stored as `element.index`. Elements in a
 scene are ordered by this string, which allows inserting an element between two
 others without renumbering the rest.
@@ -361,7 +360,7 @@ others without renumbering the rest.
 
 ## Linear Element
 
-**Definition**  
+**Definition**
 An element whose geometry is defined by an array of `points` rather than a
 bounding box. Covers `"line"` (undirected polyline that can close into a
 polygon) and `"arrow"` (directed connector with optional arrowheads).
@@ -389,7 +388,7 @@ manages the interactive point-editing state stored in
 
 ## Binding
 
-**Definition**  
+**Definition**
 The mechanism that attaches the endpoint of an arrow to a shape (the _bindable
 element_). When bound, moving the shape causes the arrow endpoint to follow it.
 
@@ -412,7 +411,7 @@ element_). When bound, moving the shape causes the arrow endpoint to follow it.
 
 ## Group
 
-**Definition**  
+**Definition**
 A logical grouping of elements sharing a `GroupId` string. Elements can belong
 to multiple nested groups; `groupIds` is an ordered array from innermost to
 outermost group.
@@ -434,7 +433,7 @@ array.
 
 ## Frame
 
-**Definition**  
+**Definition**
 A named clip region represented by an `ExcalidrawFrameElement` (type `"frame"`)
 or `ExcalidrawMagicFrameElement` (type `"magicframe"`). Elements whose `frameId`
 matches the frame's `id` are considered _inside_ the frame and are clipped to it
@@ -453,7 +452,7 @@ static renderer.
 
 ## Viewport
 
-**Definition**  
+**Definition**
 The visible rectangular area of the canvas as seen through the browser window,
 determined by `scrollX`, `scrollY`, and `zoom`. Renderer culling uses the
 viewport to skip drawing off-screen elements.
@@ -479,7 +478,7 @@ handlers.
 
 ## Zoom
 
-**Definition**  
+**Definition**
 A typed wrapper `{ value: NormalizedZoomValue }` where `NormalizedZoomValue` is
 a branded number clamped to `[MIN_ZOOM, MAX_ZOOM]`. Stored in `AppState.zoom`.
 
@@ -497,7 +496,7 @@ scroll/zoom event handlers.
 
 ## Collaborator
 
-**Definition**  
+**Definition**
 A remote user currently connected to the same whiteboard session. Stored in
 `AppState.collaborators` as a `Map<SocketId, Collaborator>`.
 
@@ -524,7 +523,7 @@ collaboration WebSocket (`excalidraw-app`).
 
 ## Socket ID
 
-**Definition**  
+**Definition**
 A branded string (`SocketId`) that uniquely identifies a WebSocket connection in
 a collaboration session. Used as the key in the `collaborators` map and in
 follow-mode (`UserToFollow.socketId`).
@@ -539,7 +538,7 @@ layer.
 
 ## Library / Library Item
 
-**Definition**  
+**Definition**
 A user-curated collection of reusable element groups. A `LibraryItem` (v2) is:
 
 ```ts
@@ -570,7 +569,7 @@ _copy_ of the elements.
 
 ## Static Canvas
 
-**Definition**  
+**Definition**
 The bottom canvas layer (`StaticCanvas` component, `renderer/staticScene.ts`)
 that draws everything that does not change at pointer-move frequency: the
 background fill, the grid, and all committed elements. Re-renders only when the
@@ -590,7 +589,7 @@ Canvas_.
 
 ## Interactive Canvas
 
-**Definition**  
+**Definition**
 The top canvas layer (`InteractiveCanvas` component,
 `renderer/interactiveScene.ts`) that draws everything that changes at high
 frequency: selection boxes, resize/rotation handles, snap lines, remote
@@ -608,7 +607,7 @@ and keyboard events.
 
 ## New Element Canvas
 
-**Definition**  
+**Definition**
 A thin third canvas layer (`NewElementCanvas`) that renders only the element
 currently being drawn (before the user releases the pointer). Isolating
 in-progress creation avoids triggering a full static redraw on every
@@ -623,7 +622,7 @@ pointer-move.
 
 ## Renderer
 
-**Definition**  
+**Definition**
 Code responsible for painting scene data onto an HTML `<canvas>`. In Excalidraw
 there are two main render paths:
 
@@ -650,7 +649,7 @@ outputs SVG nodes instead of canvas pixels).
 
 ## Rough.js / Roughness
 
-**Definition**  
+**Definition**
 `roughjs` is the third-party library that generates the hand-drawn stroke
 appearance. Each element has a `roughness` property (0 = perfectly smooth,
 higher = more wobbly). Roughness is the intentional imperfection that makes
@@ -670,7 +669,7 @@ static rendering.
 
 ## ExcalidrawImperativeAPI
 
-**Definition**  
+**Definition**
 The stable facade object returned to embedding host applications via the
 `onExcalidrawAPI` prop callback. Exposes methods like `updateScene`,
 `getSceneElements`, `exportToBlob`, `setActiveTool`, `resetScene`, etc. that let
@@ -690,7 +689,7 @@ preventing stale reference bugs.
 
 ## InitialData / SceneData
 
-**Definition**  
+**Definition**
 `InitialData` is the prop bag passed to the `<Excalidraw>` component to
 pre-populate the canvas: `{ elements, appState, files, libraryItems }`. It is
 consumed once at mount time.
@@ -709,7 +708,7 @@ same shape but used for live updates after mount. Both trigger
 
 ## Snap / Snap Line
 
-**Definition**  
+**Definition**
 Visual guides that appear while dragging elements. When an element's edge or
 centre aligns with another element (or the grid), a `SnapLine` is drawn on the
 Interactive Canvas and the element position is nudged to the exact alignment.
@@ -727,7 +726,7 @@ and cleared on pointer up.
 
 ## Elbow Arrow
 
-**Definition**  
+**Definition**
 A subtype of arrow (`ExcalidrawElbowArrowElement`) where the connector path
 consists of axis-aligned segments that route automatically around shapes.
 Identified by `elbowed: true` on the element. Has additional geometry
@@ -745,7 +744,7 @@ in place when the user adjusts them manually.
 
 ## Arrowhead
 
-**Definition**  
+**Definition**
 The decoration at the start or end of an arrow element. Stored as
 `startArrowhead` and `endArrowhead` on `ExcalidrawArrowElement`. `null` means no
 decoration.
@@ -765,7 +764,7 @@ via style panel actions.
 
 ## Theme
 
-**Definition**  
+**Definition**
 `"light"` or `"dark"` mode for the editor UI and canvas rendering. Stored as
 `AppState.theme` and propagated to renderers and Sass stylesheets via CSS
 variables. Not the same as element fill colour.
@@ -784,7 +783,7 @@ The `THEME` constant in `@excalidraw/common` defines the permitted values.
 
 ## LayerUI
 
-**Definition**  
+**Definition**
 The React component tree that renders all editor chrome _above_ the canvas: top
 toolbar, properties panel, footer, sidebar, dialogs, and context menu. It reads
 from AppState and dispatches actions but never touches the canvas elements
@@ -802,7 +801,7 @@ Positioned as an absolute overlay over the canvas stack.
 
 ## Sidebar
 
-**Definition**  
+**Definition**
 The collapsible panel docked to the right of the canvas. By default it hosts the
 Library panel. Host applications can inject custom tabs via the
 `<Excalidraw.Sidebar>` slot.
@@ -819,7 +818,7 @@ keep it isolated from the canvas render cycle.
 
 ## Command Palette
 
-**Definition**  
+**Definition**
 A keyboard-searchable overlay (opened with `Ctrl+/` or `⌘+/`) that lists all
 registered actions and recently used items. Dispatches actions via
 `ActionManager.executeAction` with `source: "commandPalette"`.
@@ -834,7 +833,7 @@ registered actions and recently used items. Dispatches actions via
 
 ## Follow Mode
 
-**Definition**  
+**Definition**
 A collaboration feature where one user (the "presenter") broadcasts their
 viewport to others. Users who follow receive viewport changes (`scrollX`,
 `scrollY`, `zoom`) in real time so their canvas stays synchronised with the
@@ -854,7 +853,7 @@ Stored in `AppState.userToFollow` (who the local user is following) and
 
 ## `.excalidraw` File Format
 
-**Definition**  
+**Definition**
 A JSON file (MIME: `application/json`, extension: `.excalidraw`) that serialises
 the full scene:
 `{ type: "excalidraw", version, source, elements, appState, files }`. This is
@@ -871,7 +870,7 @@ in a `<metadata>` block, enabling lossless round-trip editing.
 
 ## TTD (Text-to-Diagram)
 
-**Definition**  
+**Definition**
 "Text-to-Diagram" — the feature that converts a textual description (Mermaid
 syntax or an AI prompt) into Excalidraw elements. The dialog (`TTDDialog`)
 accepts Mermaid markup, parses it, and inserts the resulting elements into the
@@ -887,7 +886,7 @@ returned elements into a _magic frame_.
 
 ## Magic Frame
 
-**Definition**  
+**Definition**
 An `ExcalidrawMagicFrameElement` (type `"magicframe"`) that acts as a
 placeholder for AI-generated content. When the user triggers generation, the
 elements returned by the AI backend replace the magic frame's children. Distinct
@@ -903,7 +902,7 @@ from a regular Frame in that its content is replaced, not authored, by the user.
 
 ## Monorepo Packages
 
-**Definition**  
+**Definition**
 The repository is a Yarn-classic monorepo with five publishable packages plus
 the hosted app:
 
