@@ -61,6 +61,10 @@ subtype interface applies and how the element is rendered.
 **Usage** — `packages/element/src/types.ts`; switch/match in renderer, action
 predicates, hit-testing.
 
+> **Do not confuse** with a TypeScript interface name or a generic "type" of
+> thing. Here it is the persisted string discriminator on each element record
+> (`"rectangle"`, `"arrow"`, etc.).
+
 ---
 
 ## Scene
@@ -141,6 +145,10 @@ slice, every toolbar component.
 > are smaller picks of `AppState` passed to individual canvas renderers to
 > prevent unnecessary re-renders.
 
+> **Do not confuse** with "application state" in the abstract or with a
+> third-party global store. `AppState` is the concrete React state object on
+> `App`, separate from the element graph held by `Scene`.
+
 ---
 
 ## Tool
@@ -175,6 +183,9 @@ to _selection_). Custom tools use `type: "custom"` with a `customType` string.
 
 **Usage** — `packages/excalidraw/types.ts` (`ToolType`, `ActiveTool`); toolbar
 actions, pointer handlers.
+
+> **Do not confuse** with a physical instrument or with browser DevTools. A
+> _Tool_ is the editor interaction mode stored in `AppState.activeTool`.
 
 ---
 
@@ -240,6 +251,10 @@ in `App` and passed through context. Key responsibilities:
 **Usage** — `packages/excalidraw/actions/manager.tsx`; accessed by toolbar,
 context menu, command palette via `useExcalidrawActionManager()`.
 
+> **Do not confuse** with a generic service locator or event bus. `ActionManager`
+> is Excalidraw-specific: it registers `Action` objects, resolves shortcuts, and
+> runs `perform` → `syncActionResult`.
+
 ---
 
 ## ActionResult
@@ -253,6 +268,10 @@ Fields: `elements` (new element array), `appState` (partial patch), `files`,
 `captureUpdate` (undo policy).
 
 **Usage** — `packages/excalidraw/actions/types.ts`.
+
+> **Do not confuse** with an HTTP response body or a thrown error's "result".
+> `ActionResult` is the declarative patch (`elements`, `appState`, …) returned
+> from `Action.perform()`.
 
 ---
 
@@ -276,6 +295,10 @@ not store element data itself — it stores _deltas_ (diffs between snapshots).
 **Usage** — `packages/element/src/store.ts`; constructed and driven by `App`;
 consumed by `History`.
 
+> **Do not confuse** with Redux, Zustand, or any key-value cache of elements.
+> This `Store` observes commits and emits undoable _deltas_, not the live scene
+> graph (that is `Scene`).
+
 ---
 
 ## History
@@ -290,6 +313,9 @@ buttons reactively.
 apply so that undo/redo does not create false collaboration conflicts.
 
 **Usage** — `packages/excalidraw/history.ts`.
+
+> **Do not confuse** with browser `history`, Git history, or version counters on
+> elements. `History` is the undo/redo stack built on top of `Store` deltas.
 
 ---
 
@@ -307,6 +333,10 @@ a scene, and `squash`ed together (for batching remote operations).
 
 **Usage** — `packages/element/src/delta.ts`, `store.ts`; also used as the unit
 sent over the collaboration WebSocket for remote sync.
+
+> **Do not confuse** with Git/binary diffs or JSON Patch operations in general.
+> `StoreDelta` is Excalidraw's typed, invertible `ElementsDelta` + `AppStateDelta`
+> representation.
 
 ---
 
@@ -351,6 +381,10 @@ manages the interactive point-editing state stored in
 **Usage** — `packages/element/src/types.ts`, `binding.ts`, `elbowArrow.ts`,
 `linearElementEditor.ts`.
 
+> **Do not confuse** with "linear" meaning straight or one-dimensional in a
+> generic sense. Here it means geometry from a `points` array — polylines and
+> arrows — as opposed to simple closed shapes (`rectangle`, `ellipse`, …).
+
 ---
 
 ## Binding
@@ -370,6 +404,9 @@ element_). When bound, moving the shape causes the arrow endpoint to follow it.
 | `suggestedBinding`          | Hover-preview binding before the user releases the mouse                                                            |
 
 **Usage** — `packages/element/src/binding.ts`, `packages/element/src/types.ts`.
+
+> **Do not confuse** with React/data binding or keyboard shortcuts. _Binding_
+> is arrow-end attachment to a bindable shape (`startBinding` / `endBinding`).
 
 ---
 
@@ -434,6 +471,10 @@ convert between them.
 **Usage** — `packages/excalidraw/viewportGeometry.ts`, renderers, pointer
 handlers.
 
+> **Do not confuse** with the browser layout viewport or the HTML `viewport`
+> meta tag alone. Here _viewport_ means the visible canvas region after
+> `scrollX` / `scrollY` / `zoom`, used for culling and coordinate transforms.
+
 ---
 
 ## Zoom
@@ -447,6 +488,10 @@ Raw zoom multiplication is always applied through helpers (e.g.
 
 **Usage** — `packages/excalidraw/types.ts`, `packages/excalidraw/zoom.ts`,
 scroll/zoom event handlers.
+
+> **Do not confuse** with arbitrary "zoom level" in UX copy. `AppState.zoom` is
+> a branded `NormalizedZoomValue` wrapper; scaling must go through the zoom
+> helpers so bounds are enforced.
 
 ---
 
@@ -471,6 +516,10 @@ A remote user currently connected to the same whiteboard session. Stored in
 remote cursors and coloured selection overlays. Only populated when using the
 collaboration WebSocket (`excalidraw-app`).
 
+> **Do not confuse** with a user account id or display name. A _Collaborator_
+> entry represents one live connection's pointer, selection, and presence in the
+> map keyed by `SocketId`.
+
 ---
 
 ## Socket ID
@@ -482,6 +531,9 @@ follow-mode (`UserToFollow.socketId`).
 
 **Usage** — `packages/excalidraw/types.ts`, `excalidraw-app/src/` collaboration
 layer.
+
+> **Do not confuse** with an OS-level socket handle or port. `SocketId` is a
+> branded string identifying a collaboration WebSocket session.
 
 ---
 
@@ -530,6 +582,10 @@ Canvas_.
 **Usage** — `packages/excalidraw/components/canvases/StaticCanvas.tsx`,
 `packages/excalidraw/renderer/staticScene.ts`.
 
+> **Do not confuse** with the HTML `<canvas>` DOM node or with "static" as in
+> build output. _Static Canvas_ is the lower raster layer that paints the
+> committed scene; the _Interactive Canvas_ draws overlays on top.
+
 ---
 
 ## Interactive Canvas
@@ -544,6 +600,10 @@ and keyboard events.
 **Usage** — `packages/excalidraw/components/canvases/InteractiveCanvas.tsx`,
 `packages/excalidraw/renderer/interactiveScene.ts`.
 
+> **Do not confuse** with browser "interactive" widgets. This layer is the top
+> `<canvas>` that repaints selection, handles, snaps, and remote cursors at
+> pointer frequency — not the static element raster underneath.
+
 ---
 
 ## New Element Canvas
@@ -555,6 +615,9 @@ in-progress creation avoids triggering a full static redraw on every
 pointer-move.
 
 **Usage** — `packages/excalidraw/components/canvases/NewElementCanvas.tsx`.
+
+> **Do not confuse** with the main static or interactive canvases. This thin
+> middle layer draws only the element currently being created until pointer-up.
 
 ---
 
@@ -580,6 +643,9 @@ outputs SVG nodes instead of canvas pixels).
 **Usage** — `packages/excalidraw/renderer/`,
 `packages/excalidraw/scene/Renderer.ts`.
 
+> **Do not confuse** with the React reconciler or a generic MVC "view". Here
+> _renderer_ means code that rasterises or exports the scene to canvas/SVG.
+
 ---
 
 ## Rough.js / Roughness
@@ -595,6 +661,10 @@ static rendering.
 
 **Usage** — `packages/element/src/renderElement.ts`,
 `packages/element/src/shape.ts`.
+
+> **Do not confuse** _roughness_ with low visual quality in a pejorative sense.
+> It is the intentional sketch parameter passed into `roughjs` (0 = smooth,
+> higher = more hand-drawn wobble).
 
 ---
 
@@ -631,6 +701,10 @@ same shape but used for live updates after mount. Both trigger
 
 **Usage** — `packages/excalidraw/types.ts`.
 
+> **Do not confuse** `InitialData` with `SceneData` or with the `Scene` class.
+> `InitialData` is consumed once at mount; `SceneData` is the `updateScene()`
+> payload; `Scene` is the live in-memory graph (see _Scene_).
+
 ---
 
 ## Snap / Snap Line
@@ -646,6 +720,9 @@ and cleared on pointer up.
 **Usage** — `packages/excalidraw/snapping.ts`,
 `packages/excalidraw/renderer/renderSnaps.ts`.
 
+> **Do not confuse** with database or VM snapshots. _Snap lines_ are transient
+> alignment guides during drag, stored in `AppState.snapLines` until pointer-up.
+
 ---
 
 ## Elbow Arrow
@@ -659,6 +736,10 @@ in place when the user adjusts them manually.
 
 **Usage** — `packages/element/src/types.ts`,
 `packages/element/src/elbowArrow.ts`.
+
+> **Do not confuse** with any arrow that has bends. _Elbow_ here means
+> axis-aligned orthogonal routing (`elbowed: true`) with automatic obstacle
+> avoidance, not merely a multi-point polyline.
 
 ---
 
@@ -676,6 +757,10 @@ ER-diagram cardinality heads (`CardinalityArrowhead`).
 **Usage** — `packages/element/src/types.ts`; rendered in `renderElement.ts`; set
 via style panel actions.
 
+> **Do not confuse** with a map legend symbol or a Unicode arrow character.
+> _Arrowhead_ is the start/end decoration on an `ExcalidrawArrowElement`
+> (`startArrowhead` / `endArrowhead`).
+
 ---
 
 ## Theme
@@ -691,6 +776,10 @@ The `THEME` constant in `@excalidraw/common` defines the permitted values.
 **Usage** — `packages/element/src/types.ts` (re-exported),
 `packages/excalidraw/types.ts`, renderers.
 
+> **Do not confuse** with per-element stroke/fill styles or slide-deck themes.
+> `AppState.theme` is only `"light"` / `"dark"` for the editor chrome and canvas
+> defaults; `viewBackgroundColor` is separate.
+
 ---
 
 ## LayerUI
@@ -704,6 +793,10 @@ directly.
 Positioned as an absolute overlay over the canvas stack.
 
 **Usage** — `packages/excalidraw/components/LayerUI.tsx`.
+
+> **Do not confuse** with canvas stacking or Photoshop-style image layers.
+> `LayerUI` is the React overlay for toolbars, panels, and dialogs above the
+> canvas stack.
 
 ---
 
@@ -719,6 +812,9 @@ keep it isolated from the canvas render cycle.
 
 **Usage** — `packages/excalidraw/components/Sidebar/`.
 
+> **Do not confuse** with the browser window's side panel or OS notification
+> shade. This _Sidebar_ is Excalidraw's right-docked UI (Library and host tabs).
+
 ---
 
 ## Command Palette
@@ -729,6 +825,10 @@ registered actions and recently used items. Dispatches actions via
 `ActionManager.executeAction` with `source: "commandPalette"`.
 
 **Usage** — `packages/excalidraw/components/CommandPalette/`.
+
+> **Do not confuse** with the OS-level command palette (Spotlight, Raycast, etc.)
+> except by analogy. This one searches only registered Excalidraw `Action`s and
+> dispatches through `ActionManager`.
 
 ---
 
@@ -746,6 +846,10 @@ Stored in `AppState.userToFollow` (who the local user is following) and
 **Usage** — `packages/excalidraw/types.ts` (`UserToFollow`);
 `excalidraw-app/src/` collaboration layer; interactive renderer.
 
+> **Do not confuse** with following a user on social media or subscribing to
+> updates. _Follow mode_ syncs followers' `scrollX` / `scrollY` / `zoom` to a
+> presenter's viewport in real time.
+
 ---
 
 ## `.excalidraw` File Format
@@ -758,6 +862,10 @@ the native import/export format. SVG exports can optionally embed the same JSON
 in a `<metadata>` block, enabling lossless round-trip editing.
 
 **Usage** — `packages/excalidraw/data/`, export/import actions.
+
+> **Do not confuse** with arbitrary JSON or SVG exports. The `.excalidraw` file
+> has the `{ type: "excalidraw", version, elements, appState, files, … }` schema
+> used for native round-trip save/load.
 
 ---
 
@@ -772,6 +880,9 @@ returned elements into a _magic frame_.
 
 **Usage** — `packages/excalidraw/components/TTDDialog/`.
 
+> **Do not confuse** the acronym with unrelated "TTD" expansions (e.g. test-driven).
+> Here it means _Text-to-Diagram_: Mermaid or AI prompt → inserted elements.
+
 ---
 
 ## Magic Frame
@@ -783,6 +894,10 @@ elements returned by the AI backend replace the magic frame's children. Distinct
 from a regular Frame in that its content is replaced, not authored, by the user.
 
 **Usage** — `packages/element/src/types.ts`; `excalidraw-app` AI integration.
+
+> **Do not confuse** with a normal `ExcalidrawFrameElement`. A _magic frame_ is
+> for AI generation flows; its children are replaced by backend output rather
+> than only clipped for export.
 
 ---
 
@@ -805,3 +920,7 @@ Dependencies are strictly one-way (bottom to top); circular imports are
 forbidden.
 
 **Usage** — root `package.json`, `packages/*/package.json`.
+
+> **Do not confuse** this list with every dependency on npm. "Monorepo
+> packages" means these first-party workspaces (`@excalidraw/*` and
+> `excalidraw-app`) and their layering rules, not third-party libraries.
