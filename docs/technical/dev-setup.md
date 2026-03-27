@@ -89,7 +89,7 @@ excalidraw/
 ```
 
 Never import a higher-level package from a lower-level one — ESLint enforces
-this via the no-circular-deps rule in `packages/excalidraw/eslintrc.base.json`.
+this via the no-restricted-imports rule in `packages/eslintrc.base.json`.
 
 ---
 
