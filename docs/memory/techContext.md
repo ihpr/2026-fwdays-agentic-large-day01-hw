@@ -29,14 +29,14 @@
 
 ### Package Build Flow (library)
 
-```
+```text
 scripts/buildPackage.js (esbuild) → dist/dev/ + dist/prod/
 tsc → dist/types/
 ```
 
 ### App Build Flow
 
-```
+```text
 vite build → excalidraw-app/build/
 ```
 
